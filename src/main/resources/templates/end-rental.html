@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Afslut lejeaftale</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div class="form-page">
+    <div class="form-card">
+
+        <h1>Afslut lejeaftale</h1>
+
+        <p th:text="'Bil: ' + ${rental.car.brand + ' ' + rental.car.model}"></p>
+        <p th:text="'Nummerplade: ' + ${rental.car.licensePlate}"></p>
+
+        <form th:action="@{'/rentals/end/' + ${rental.id}}" method="post">
+
+            <label>
+                <input type="checkbox" name="hasDamage" value="true">
+                Der er skader på bilen
+            </label>
+
+            <input type="text" name="damageDescription" placeholder="Beskriv skader">
+            <input type="number" step="0.01" name="damagePrice" placeholder="Pris for skader">
+
+            <div class="form-actions">
+                <button type="submit" class="create-button">
+                    Afslut lejeaftale
+                </button>
+
+                <a th:href="@{/rentals}" class="cancel-button">
+                    Annuller
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

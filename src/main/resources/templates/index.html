@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biludlejning</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        BILABONNEMENT
+    </div>
+
+    <nav class="navbar">
+        <a href="/">Ny Lejeaftale</a>
+        <a th:href="@{/rentals}">Se Lejeaftaler</a>
+        <a th:href="@{/workshop}">Biler på Værksted</a>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">
+                Log ud
+            </button>
+        </form>
+    </nav>
+</header>
+
+<main class="dashboard-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Biler til rådighed</h2>
+
+            <a th:href="@{/cars/new}" class="add-car-button">
+                + Tilføj ny bil
+            </a>
+        </div>
+
+        <div class="car-list">
+            <div class="car-card"
+                 th:each="car : ${cars}"
+                 th:if="${car.brand != null and car.model != null}">
+
+                <img th:src="${car.imageUrl}" alt="Billede af bil">
+
+                <div class="car-info">
+                    <h3 th:text="${car.brand + ' ' + car.model}"></h3>
+                    <p th:text="'Nummerplade: ' + ${car.licensePlate}"></p>
+                    <p th:text="${car.year + ' • ' + car.transmission}"></p>
+                    <p th:text="${#numbers.formatDecimal(car.pricePerDay, 0, 0) + ' kr/dag'}"></p>
+                    <p th:text="'Nypris: ' + ${#numbers.formatDecimal(car.purchasePrice, 0, 0)} + ' kr'"></p>
+                </div>
+
+                <div class="car-card-actions">
+
+                    <a th:href="@{'/rentals/new/' + ${car.id}}" class="car-action-button">
+                        Opret ny lejeaftale
+                    </a>
+
+                    <a th:href="@{'/cars/edit/' + ${car.id}}" class="car-action-button secondary-button">
+                        Rediger bil
+                    </a>
+
+                    <form th:action="@{'/cars/delete/' + ${car.id}}" method="post">
+
+                        <button type="submit" class="car-action-button delete-car-button">
+                            Fjern bil
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </aside>
+
+    <section class="content">
+        <div class="content-card">
+            <h1>Velkommen</h1>
+
+            <p>
+                Vælg en ledig bil fra venstre side for at oprette en ny lejeaftale.
+            </p>
+        </div>
+        <div class="content-card">
+            <h1>Statistik</h1>
+
+            <div class="stats-grid">
+
+                <div class="stat-box">
+                    <h2>Udlejede biler</h2>
+                    <p th:text="${rentedCount + ' biler'}"></p>
+                    <p th:text="'Indtjening pr. dag: ' + ${#numbers.formatDecimal(rentedDailyIncome,0,0)} + ' kr'"></p>
+                    <p th:text="'Samlet nypris: ' + ${#numbers.formatDecimal(rentedPurchasePrice,0,0)} + ' kr'"></p>
+                </div>
+
+                <div class="stat-box">
+                    <h2>Biler på værksted</h2>
+                    <p th:text="${workshopCount + ' biler'}"></p>
+                    <p th:text="'Samlet skadepris: ' + ${#numbers.formatDecimal(workshopDamagePrice,0,0)} + ' kr'"></p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    Bilabonnement A/S Vibeholmsvej 31 2605 Brøndby CVR-nr. 37856827
+</footer>
+
+</body>
+</html>

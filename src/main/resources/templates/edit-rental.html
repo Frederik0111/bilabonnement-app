@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rediger lejeaftale</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+
+<body>
+
+<div class="form-page">
+
+    <div class="form-card">
+
+        <h1>Rediger lejeaftale</h1>
+
+        <form th:action="@{'/rentals/update/' + ${rental.id}}" method="post">
+
+            <input type="text" name="customerName" th:value="${rental.customerName}" placeholder="Kundens navn" required>
+            <input type="email" name="customerEmail" th:value="${rental.customerEmail}" placeholder="Kundens email" required>
+            <input type="text" name="customerPhone" th:value="${rental.customerPhone}" placeholder="Kundens telefonnummer" required>
+            <input type="date" name="startDate" th:value="${rental.startDate}" required>
+            <input type="date" name="endDate" th:value="${rental.endDate}" required>
+            <input type="text" name="notes" th:value="${rental.notes}" placeholder="Noter">
+
+            <div class="form-actions">
+
+                <button type="submit" class="create-button">
+                    Gem ændringer
+                </button>
+
+                <a th:href="@{/rentals}" class="cancel-button">
+                    Annuller
+                </a>
+
+            </div>
+
+        </form>
+
+        <form th:action="@{'/rentals/delete/' + ${rental.id}}" method="post" class="delete-form">
+
+            <button type="submit" class="delete-button">
+                Slet lejeaftale
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

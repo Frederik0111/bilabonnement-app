@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Tilføj bil</title>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+
+<body>
+
+<div class="form-page">
+
+  <div class="form-card">
+
+    <h1>Tilføj ny bil</h1>
+
+    <form th:action="@{/cars}" method="post">
+
+      <input type="text" name="brand" placeholder="Mærke" required>
+      <input type="text" name="model" placeholder="Model" required>
+      <input type="text" name="licensePlate" placeholder="Nummerplade" required>
+      <input type="number" name="year" placeholder="Årgang" required>
+      <input type="text" name="transmission" placeholder="Gearkasse" required>
+      <input type="number" step="0.01" name="pricePerDay" placeholder="Pris pr dag" required>
+      <input type="number" step="0.01" name="purchasePrice" placeholder="Nypris" required>
+
+      <div class="form-group">
+
+        <label>Vælg billede</label>
+
+        <div class="image-picker">
+
+          <label class="image-option" th:each="image : ${images}">
+
+            <input type="radio" name="imageUrl" th:value="${image}" required>
+
+            <img th:src="${image}" alt="Bil billede">
+
+          </label>
+
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+
+        <button type="submit" class="create-button">
+          Gem bil
+        </button>
+
+        <a href="/" class="cancel-button">
+          Annuller
+        </a>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+</body>
+</html>

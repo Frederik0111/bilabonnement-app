@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="login-card">
+        <h1>Velkommen Tilbage</h1>
+        <p class="subtitle">Venligst login for at fortsætte</p>
+
+        <form th:action="@{/login}" method="post">
+
+            <div class="input-group">
+                <label>Brugernavn</label>
+                <input type="text" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="input-group">
+                <label>Kodeord</label>
+                <input type="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <div th:if="${param.error}" class="error-message">
+            Ugyldigt brugernavn eller kodeord
+        </div>
+
+        <div th:if="${param.logout}" class="logout-message">
+            Du er blevet logged ud
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

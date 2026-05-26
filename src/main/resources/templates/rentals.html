@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lejeaftaler</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">
+        BILABONNEMENT
+    </div>
+
+    <nav class="navbar">
+        <a th:href="@{/}">Ny Lejeaftale</a>
+        <a th:href="@{/rentals}">Se Lejeaftaler</a>
+        <a th:href="@{/workshop}">Biler på Værksted</a>
+
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">
+                Log ud
+            </button>
+        </form>
+    </nav>
+</header>
+
+<main class="dashboard-layout">
+    <section class="content" style="grid-column: 1 / 3;">
+        <div class="content-card">
+
+            <h1>Lejeaftaler</h1>
+
+            <table class="rental-table">
+                <thead>
+                <tr>
+                    <th>Kunde</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Bil</th>
+                    <th>Nummerplade</th>
+                    <th>Pris pr dag</th>
+                    <th>Nypris</th>
+                    <th>Startdato</th>
+                    <th>Slutdato</th>
+                    <th>Status</th>
+                    <th>Skader</th>
+                    <th>Skadepris</th>
+                    <th>Handlinger</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="rental : ${rentals}">
+                    <td th:text="${rental.customerName}"></td>
+                    <td th:text="${rental.customerEmail}"></td>
+                    <td th:text="${rental.customerPhone}"></td>
+                    <td th:text="${rental.car.brand + ' ' + rental.car.model}"></td>
+                    <td th:text="${rental.car.licensePlate}"></td>
+                    <td th:text="${#numbers.formatDecimal(rental.car.pricePerDay, 0, 0) + ' kr'}"></td>
+                    <td th:text="${#numbers.formatDecimal(rental.car.purchasePrice, 0, 0) + ' kr'}"></td>
+                    <td th:text="${rental.startDate}"></td>
+                    <td th:text="${rental.endDate}"></td>
+                    <td th:text="${rental.status}"></td>
+                    <td th:text="${rental.hasDamage ? rental.damageDescription : 'Ingen'}"></td>
+                    <td th:text="${#numbers.formatDecimal(rental.damagePrice, 0, 0) + ' kr'}"></td>
+                    <td>
+                        <a th:href="@{'/rentals/edit/' + ${rental.id}}" class="car-action-button">
+                            Rediger
+                        </a>
+
+                        <a th:if="${rental.status == 'UDLEJET'}"
+                           th:href="@{'/rentals/end/' + ${rental.id}}"
+                           class="car-action-button">
+                            Afslut
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    Bilabonnement A/S Vibeholmsvej 31 2605 Brøndby CVR-nr. 37856827
+</footer>
+
+</body>
+</html>

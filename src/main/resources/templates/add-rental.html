@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Opret lejeaftale</title>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<div class="form-page">
+  <div class="form-card">
+
+    <h1>Opret lejeaftale</h1>
+
+    <p th:text="${car.brand + ' ' + car.model}"></p>
+    <p th:text="'Nummerplade: ' + ${car.licensePlate}"></p>
+
+    <form th:action="@{'/rentals/save/' + ${car.id}}" method="post">
+
+      <input type="text" name="customerName" placeholder="Kundens navn" required>
+      <input type="email" name="customerEmail" placeholder="Kundens email" required>
+      <input type="text" name="customerPhone" placeholder="Kundens telefonnummer" required>
+      <input type="date" name="startDate" required>
+      <input type="date" name="endDate" required>
+      <input type="text" name="notes" placeholder="Noter">
+
+      <button type="submit" class="create-button">
+        Gem lejeaftale
+      </button>
+
+      <a href="/" class="cancel-button">
+        Annuller
+      </a>
+
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>
