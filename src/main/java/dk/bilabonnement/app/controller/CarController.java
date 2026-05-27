@@ -128,21 +128,13 @@ public class CarController {
 
     private List<String> getAvailableImages() {
 
-        List<String> images = new ArrayList<>();
-
-        File folder = new File(
-                "src/main/resources/static/images");
-
-        File[] files = folder.listFiles();
-
-        if (files != null) {
-
-            for (File file : files) {
-
-                images.add("/images/" + file.getName());
-            }
-        }
-
-        return images;
+        return List.of(
+                "/images/car1.png",
+                "/images/car2.png",
+                "/images/car3.png",
+                "/images/car4.png",
+                "/images/car5.png",
+                "/images/car6.png"
+        );
     }
 }
