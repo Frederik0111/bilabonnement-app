@@ -1,6 +1,6 @@
 Datamatiker 2. semester eksamensprojekt
 
-Deployed til Azure Web: >AZURE WEB LINK<
+Deployed til Azure Web: bilabonnement-g7czd3h4gjfecrex.francecentral-01.azurewebsites.net
 
 Brugernavn demo Password demo
 
